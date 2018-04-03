@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -15,16 +15,16 @@ class RegisterController extends Controller
     public function store()
     {
         $this->validate(request(), [
-            'full_name' => 'required',
+            'full_name'    => 'required',
             'phone_number' => 'required|numeric',
-            'email' => 'required|email',
-            'password' => 'required'
+            'email'        => 'required|email',
+            'password'     => 'required',
         ]);
-        
+
         $user = User::create(request(['full_name', 'phone_number', 'email', 'password']));
-        
+
         auth()->login($user);
-        
+
         return redirect()->to('/register');
     }
 }

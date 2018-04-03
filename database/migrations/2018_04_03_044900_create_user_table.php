@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUserTable extends Migration
 {
@@ -19,7 +19,7 @@ class CreateUserTable extends Migration
             $table->string('phone_number');
             $table->string('email');
             $table->string('password');
-            $table->timestamps();
+            $table->timestamps();   
         });
     }
 
