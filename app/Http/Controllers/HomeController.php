@@ -16,10 +16,10 @@ class HomeController extends Controller
         return view('home');
     }
 
-    // public function someAdminStuff(Request $request)
-    // {
-    //     $request->user()->authorizeRoles('manager');
-    //     return view('some.view');
-    // }
+    public function webmasterPage(Request $request)
+    {
+        // $request->user()->authorizeRoles('admin');
+        return view('admin.home');
+    }
 
 }
