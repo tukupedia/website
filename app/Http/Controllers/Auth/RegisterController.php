@@ -37,7 +37,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware(['auth', 'admin']);
     }
 
     /**
@@ -72,7 +72,7 @@ class RegisterController extends Controller
         ]);
         $user
             ->roles()
-            ->attach(Role::where('name', 'member')->first());
+            ->attach(Role::where('name', 'admin')->first());
         return $user;
     }
 }
