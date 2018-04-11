@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -64,6 +65,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        DB::beginTransaction();
+
+        /**
+         * Buat data user
+         */
         $user = User::create([
             'full_name'    => $data['full_name'],
             'phone_number' => $data['phone_number'],
@@ -71,17 +77,18 @@ class RegisterController extends Controller
             'password'     => bcrypt($data['password']),
         ]);
 
-        if (!\Auth::guest()) {
-            if (\Auth::user()->authorizeRoles('admin')) {
-                $user
-                    ->roles()
-                    ->attach(Role::where('name', 'admin')->first());
-            }
-        } else {
-            $user
-                ->roles()
-                ->attach(Role::where('name', 'user')->first());
-        }
+        /**
+         * Ambil role dengan nama member
+         */
+        $member = Role::where('name', 'member')->first();
+
+        /**
+         * Relasikan antara user yang baru saja dibuat dengan role member
+         * sehingga user baru statusnya adalah member
+         */
+        $user->roles()->attach($member);
+
+        DB::commit();
 
         return $user;
     }
