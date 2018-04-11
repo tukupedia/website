@@ -37,7 +37,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'admin']);
+        $this->middleware('web');
     }
 
     /**
@@ -70,9 +70,19 @@ class RegisterController extends Controller
             'email'        => $data['email'],
             'password'     => bcrypt($data['password']),
         ]);
-        $user
-            ->roles()
-            ->attach(Role::where('name', 'admin')->first());
+
+        if (!\Auth::guest()) {
+            if (\Auth::user()->authorizeRoles('admin')) {
+                $user
+                    ->roles()
+                    ->attach(Role::where('name', 'admin')->first());
+            }
+        } else {
+            $user
+                ->roles()
+                ->attach(Role::where('name', 'user')->first());
+        }
+
         return $user;
     }
 }
