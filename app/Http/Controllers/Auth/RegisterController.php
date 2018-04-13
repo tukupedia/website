@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Tukupedia\Repository\Interfaces\UserRepositoryInterface;
 
 class RegisterController extends Controller
 {
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -36,9 +36,10 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->middleware('web');
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -65,31 +66,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        DB::beginTransaction();
-
-        /**
-         * Buat data user
-         */
-        $user = User::create([
-            'full_name'    => $data['full_name'],
-            'phone_number' => $data['phone_number'],
-            'email'        => $data['email'],
-            'password'     => bcrypt($data['password']),
-        ]);
-
-        /**
-         * Ambil role dengan nama member
-         */
-        $member = Role::where('name', 'member')->first();
-
-        /**
-         * Relasikan antara user yang baru saja dibuat dengan role member
-         * sehingga user baru statusnya adalah member
-         */
-        $user->roles()->attach($member);
-
-        DB::commit();
-
-        return $user;
+        return $this->userRepository->create($data);
     }
 }
