@@ -16,10 +16,10 @@ class IsMember
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user() && Auth::user()->hasRole('member')) {
+        if (Auth::user() && Auth::user()->hasRole('user')) {
             return $next($request);
         }
 
-        return redirect('/');
+        return redirect('/home');
     }
 }

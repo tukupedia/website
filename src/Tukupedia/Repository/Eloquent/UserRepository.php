@@ -29,7 +29,7 @@ class UserRepository implements UserRepositoryInterface
         /**
          * Ambil role dengan nama member
          */
-        $member = Role::where('name', 'member')->first();
+        $member = Role::where('name', 'user')->first();
 
         /**
          * Relasikan antara user yang baru saja dibuat dengan role member
