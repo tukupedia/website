@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -19,6 +20,14 @@ class LoginController extends Controller
      */
 
     use AuthenticatesUsers;
+
+    public function authenticated($request, $user)
+    {
+        if (!$request->user()->hasRole('user')) {
+            Auth::logout();
+            return redirect('/login');
+        }
+    }
 
     /**
      * Where to redirect users after login.

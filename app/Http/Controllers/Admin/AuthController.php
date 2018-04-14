@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 /**
@@ -11,6 +12,14 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 class AuthController extends Controller
 {
     use AuthenticatesUsers;
+
+    public function authenticated($request, $user)
+    {
+        if (!$request->user()->hasRole('admin')) {
+            Auth::logout();
+            return redirect('/webmaster/login');
+        }
+    }
 
     /**
      * Show the application's login form.
