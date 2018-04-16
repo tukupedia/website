@@ -24,6 +24,7 @@ class UserRepository implements UserRepositoryInterface
             'phone_number' => $data['phone_number'],
             'email'        => $data['email'],
             'password'     => bcrypt($data['password']),
+            'is_admin'     => 0,
         ]);
 
         /**

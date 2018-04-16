@@ -43,6 +43,7 @@ class AdminRepository implements AdminRepositoryInterface
             'phone_number' => $data['phone_number'],
             'email'        => $data['email'],
             'password'     => bcrypt($data['password']),
+            'is_admin'     => 1,
         ]);
 
         /**

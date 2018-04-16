@@ -14,7 +14,32 @@
                         </div>
                     @endif
 
-                    You are logged in as Admin!
+                    <div class="container">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Role</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($admin as $a)
+                                <tr>
+                                    <td>{{ $a->full_name }}</td>
+                                    <td>{{ $a->email }}</td>
+                                    <td>{{ $a->phone_number }}</td>
+                                    <td>
+                                        @foreach ($a->roles as $role)
+                                            {{$role->name}}
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
