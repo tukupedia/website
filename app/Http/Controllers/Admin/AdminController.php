@@ -25,6 +25,20 @@ class AdminController extends Controller
         return view('admin.auth.register');
     }
 
+    public function edit($id)
+    {
+        $user = $this->adminRepository->findById($id);
+
+        return view('admin.home.update', [
+            'user' => $user,
+        ]);
+    }
+
+    public function update($id, Request $request)
+    {
+        return $this->adminRepository->update($id, $request);
+    }
+
     /**
      * Create a new user instance after a valid registration.
      *

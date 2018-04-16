@@ -48,15 +48,15 @@ class AdminRepository implements AdminRepositoryInterface
 
         $role = $data['role'];
         /**
-         * Ambil role dengan nama member
+         * Ambil role dengan nama admin
          */
-        $member = Role::where('name', $role)->first();
+        $admin = Role::where('name', $role)->first();
 
         /**
-         * Relasikan antara user yang baru saja dibuat dengan role member
-         * sehingga user baru statusnya adalah member
+         * Relasikan antara user yang baru saja dibuat dengan role admin
+         * sehingga user baru statusnya adalah admin
          */
-        $user->roles()->attach($member);
+        $user->roles()->attach($admin);
 
         DB::commit();
 
@@ -72,8 +72,39 @@ class AdminRepository implements AdminRepositoryInterface
         return redirect('/webmaster');
     }
 
-    public function edit($id, array $data)
+    public function findById($id)
     {
-        # code...
+        $user = User::find($id);
+        return $user;
     }
+
+    public function update($id, Request $request)
+    {
+        $user = User::find($id);
+
+        /**
+         *
+         * Update user field
+         */
+        $user->update($request->all());
+
+        /**
+         *
+         * Value role didapat dari
+         * dropdown pada view
+         */
+        $role = $request['role'];
+
+        $admin = Role::where('name', $role)->first();
+
+        /**
+         *
+         * Mengambil nilai dari role semula
+         * lalu eksekusi dan menghapus nilai role awal
+         */
+        $user->roles()->sync($admin);
+
+        return redirect('/webmaster');
+    }
+
 }

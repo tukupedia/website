@@ -15,7 +15,7 @@ class AuthController extends Controller
 
     public function authenticated($request, $user)
     {
-        if (!$request->user()->hasRole('admin')) {
+        if (!$request->user()->is_admin == 1) {
             Auth::logout();
             return redirect('/webmaster/login');
         }

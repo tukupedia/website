@@ -15,10 +15,12 @@ interface AdminRepositoryInterface
 
     public function store(Request $request);
 
+    public function findById($id);
+
     /**
      * edit a user
      * @param  string $value [description]
      */
-    public function edit($id, array $data);
+    public function update($id, Request $request);
 
 }

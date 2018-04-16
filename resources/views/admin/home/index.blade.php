@@ -36,6 +36,10 @@
                                             {{$role->name}}
                                         @endforeach
                                     </td>
+                                    <td>
+                                        <a href="{{ route('admin.update', $a->id) }}" class="btn btn-primary" role="button">Edit</a>
+                                        <a href="#" class="btn btn-danger" role="button">Delete</a>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
