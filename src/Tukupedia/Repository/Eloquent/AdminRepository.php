@@ -46,10 +46,11 @@ class AdminRepository implements AdminRepositoryInterface
             'is_admin'     => 1,
         ]);
 
+        $role = $data['role'];
         /**
          * Ambil role dengan nama member
          */
-        $member = Role::where('name', 'admin')->first();
+        $member = Role::where('name', $role)->first();
 
         /**
          * Relasikan antara user yang baru saja dibuat dengan role member

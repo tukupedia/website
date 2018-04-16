@@ -44,7 +44,7 @@
                             <li><a class="nav-link" href="{{ route('admin.login') }}">{{ __('Login') }}</a></li>
                         @else
                             @php
-                                $check = Auth::user()->hasRole('admin');
+                                $check = Auth::user()->is_admin == 1;
                             @endphp
                             @if ($check)
                                 <li><a class="nav-link" href="{{ route('admin.register') }}">{{ __('Register Admin') }}</a></li>
