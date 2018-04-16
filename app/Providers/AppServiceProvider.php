@@ -24,5 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(\Tukupedia\Repository\Interfaces\UserRepositoryInterface::class, \Tukupedia\Repository\Eloquent\UserRepository::class);
+        $this->app->bind(\Tukupedia\Repository\Interfaces\AdminRepositoryInterface::class, \Tukupedia\Repository\Eloquent\AdminRepository::class);
     }
 }

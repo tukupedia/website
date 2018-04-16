@@ -21,6 +21,8 @@ class AuthController extends Controller
         }
     }
 
+    protected $redirectTo = '/webmaster';
+
     /**
      * Show the application's login form.
      *
