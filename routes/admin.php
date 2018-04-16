@@ -2,7 +2,7 @@
 
 Route::group(['prefix' => '/webmaster'], function () {
     Route::group(['middleware' => 'guest'], function () {
-        Route::get('/login', ['uses' => 'Admin\AuthController@showLoginForm']);
+        Route::get('/login', ['uses' => 'Admin\AuthController@showLoginForm'])->name('admin.login');
         Route::post('/login', ['uses' => 'Admin\AuthController@login']);
     });
     Route::group(['middleware' => ['auth', 'admin']], function () {

@@ -41,7 +41,7 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                            <li><a class="nav-link" href="{{ route('admin.login') }}">{{ __('Login') }}</a></li>
                         @else
                             @php
                                 $check = Auth::user()->hasRole('admin');
