@@ -4,17 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 use Tukupedia\Repository\Interfaces\AdminRepositoryInterface;
 
 class AdminController extends Controller
 {
-    use RegistersUsers;
 
     public function __construct(AdminRepositoryInterface $adminRepository)
     {
-        $this->middleware('admin');
         $this->adminRepository = $adminRepository;
     }
 
@@ -23,25 +20,9 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showRegistrationForm()
+    public function create()
     {
         return view('admin.auth.register');
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'full_name'    => 'required|string|max:255',
-            'phone_number' => 'required|numeric',
-            'email'        => 'required|string|email|max:255|unique:users',
-            'password'     => 'required|string|min:6|confirmed',
-        ]);
     }
 
     /**
@@ -50,8 +31,8 @@ class AdminController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function store(Request $request)
     {
-        return $this->adminRepository->create($data);
+        return $this->adminRepository->store($request);
     }
 }
